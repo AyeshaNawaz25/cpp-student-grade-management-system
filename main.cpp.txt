@@ -1,0 +1,124 @@
+#include<iostream>
+using namespace std;
+class PersonalInfo 
+{
+	protected:
+		string StudentN;
+		string depart;
+		public:
+			void in()
+			{
+				cout<<"Enter your Name:";
+				cin>>StudentN;
+				cout<<"Enter your Department:";
+				cin>>depart;
+			}
+			
+};
+class AcademicInfo
+{
+	protected:
+		int marks[3];
+		public:
+			void Inputmarks()
+			{
+				for(int i=0;i<3;i++)
+				{
+					do
+					{
+					 cout<<"Enter your marks of subject "<<i+1<<":";
+					 cin>>marks[i];
+				     if(marks[i]<0 || marks[i]>100)
+				     {
+				    	cout<<"you entered invalid marks! Please enter the marks beteen 0 and 100"<<endl;
+					 }
+		        	}
+		        	while(marks[i]<0 || marks[i]>100);
+			
+		    	}
+	    	}
+	    	float total()
+	    	{
+	    		float sum=0;
+	    		for(int i=0;i<3;i++)
+	    		{
+	    			sum+=marks[i]; 
+				}
+				return sum;
+	    	}
+	    	float per()
+	    	{
+	    		return total()/3.0;
+			}
+			char Grade(int a)
+			{
+				if(a>=80)
+				{
+					return 'A';
+				}
+				if(a>=70)
+				{
+					return 'B';
+				}
+				if(a>=60)
+				{
+					return 'C';
+				}
+					if(a>=50)
+				{
+					return 'D';
+				}
+					if(a<50)
+				{
+					return 'F';
+				}			
+			}
+};
+class Student:public PersonalInfo , public AcademicInfo
+{
+	public:
+	void Display()
+	{
+		cout<<"\n-----Student Details----"<<endl;
+		cout<<"Student Name:"<<StudentN<<endl;
+		cout<<"Student Deparment:"<<depart<<endl;
+		cout<<"\n ----- Marks and Grade----\n"<<endl;
+		for(int i=0;i<3;i++)
+		{
+			cout<<"Marks of subject "<<i+1<<" is "<<marks[i]<<" and Grade is "<<Grade(marks[i])<<endl;
+		}
+		cout<<"Total marks:"<<total();
+		cout<<"\nPercentage:"<< per()<<"%\n";
+		//Dispaly fail 
+		bool fail=false;
+		for(int i=0;i<3;i++)
+		{
+			if(Grade(marks[i])=='F')
+			{
+				fail=true;
+			}
+		}
+		if(fail==true)
+		{
+			cout<<"Student failed in  "<<endl;
+			for(int i=0;i<3;i++)
+			{
+				if(marks[i]<50)
+				{
+					cout<<"subject "<<i+1<<" with Marks "<<marks[i]<<endl;
+				}
+			}
+		}
+		
+	}
+};
+int main()
+{
+	Student s;
+	s.in();
+	s.Inputmarks();
+	s.total();
+	s.per();
+	s.Display();
+	
+}
